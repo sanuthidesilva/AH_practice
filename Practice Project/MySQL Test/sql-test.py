@@ -36,28 +36,20 @@ endTime = datetime.now()
 
 def start_insert_data():
     global startTime
+    global startTimeStr
+
     startTime = datetime.now()
-
     startTimeStr = datetime.now().strftime("%H:%M")
-    sql = "INSERT INTO sessions (startSession) VALUES (%s)"
-    values = (startTimeStr,)
-
-    mycursor.execute(sql, values)
-    conn.commit()
-
     start_output_string.set("Time logged!")
 
 
 def end_insert_data():
     global endTime
+    global startTimeStr
+    global endTimeStr
+
     endTime = datetime.now()
-
     endTimeStr = datetime.now().strftime("%H:%M")
-    sql = "INSERT INTO sessions (endSession) VALUES (%s)"
-    values = (endTimeStr,)
-
-    mycursor.execute(sql, values)
-    conn.commit()
 
     end_output_string.set("Time logged!")
 
@@ -76,6 +68,13 @@ def calTotal():
     minutes = (total_seconds % 3600) // 60
 
     output_string.set(f"{hours} hrs {minutes} mins")
+
+    sql = "INSERT INTO sessions (startSession, endSession, totalHours, totalMinutes) VALUES (%s,%s,%s,%s)"
+    # Flat tuple with both values
+    values = (startTimeStr, endTimeStr, hours, minutes)
+
+    mycursor.execute(sql, values)
+    conn.commit()
 
 
 # window
@@ -145,6 +144,3 @@ frame.pack()
 window.mainloop()
 
 conn.commit()
-
-# mycursor.execute(
-# 'CREATE TABLE testingSess (name VARCHAR(255), age INTEGER(10));')

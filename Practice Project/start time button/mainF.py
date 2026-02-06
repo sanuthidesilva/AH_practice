@@ -2,14 +2,12 @@ import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
 
-# --------------------- Functions ---------------------
-
 
 def StartTimeNow():
 
     global Startime
-    Startime = datetime.now()  
-    start_output_string.set(Startime.strftime("%H:%M"))  
+    Startime = datetime.now()
+    start_output_string.set(Startime.strftime("%H:%M"))
 
 
 def EndTimeNow():
@@ -28,7 +26,6 @@ def calTotal():
     minutes = (total_seconds % 3600) // 60
 
     output_string.set(f"{hours} hrs {minutes} mins")
-
 
 
 window = tk.Tk()

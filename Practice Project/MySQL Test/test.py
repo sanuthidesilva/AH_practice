@@ -23,6 +23,7 @@ cursor.execute('''
 ''')
 conn.commit()
 
+
 def insert_data(name_entry, age_entry):
     name = name_entry.get()
     age = age_entry.get()
@@ -47,6 +48,7 @@ def create_submit_button(parent, name_entry, age_entry):
         command=lambda: insert_data(name_entry, age_entry)
     )
     btn.pack(pady=10)
+
 
 root = tk.Tk()
 root.title("Tkinter + MySQL")
